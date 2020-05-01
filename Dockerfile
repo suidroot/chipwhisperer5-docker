@@ -6,11 +6,15 @@ RUN apt-get update
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y tzdata
 
 # Install dependencies
-RUN apt-get install -y python3 python3-pip python3-tk wget git pkg-config libfreetype6-dev libpng-dev libusb-1.0.0 libusb-1.0.0-dev
+RUN apt-get install -y python3 python3-pip python3-tk wget git pkg-config libfreetype6-dev libpng-dev libusb-1.0.0 libusb-1.0.0-dev libopenblas-base libopenblas-dev gfortran
 RUN apt-get install -y avr-libc gcc-avr gcc-arm-none-eabi
 
 # Copy udev rules
 COPY 99-newae.rules /etc/udev/rules.d/99-newae.rules
+
+# Python Packages
+RUN pip3 install --no-cache-dir cython numpy
+RUN pip3 install --no-cache-dir scipy==1.1.0 
 
 # Download chipwhisperer
 RUN mkdir -p /opt/chipwhisperer
