@@ -30,6 +30,17 @@ RUN python3 setup.py develop
 WORKDIR /opt/chipwhisperer/chipwhisperer/jupyter
 RUN pip3 install -r requirements.txt
 
+#https://github.com/newaetech/phywhispererusb.git
+# Download chipwhisperer
+RUN mkdir -p /opt/pywhispererusb
+WORKDIR /opt/pywhispererusb
+RUN git clone --recursive --depth=1 https://github.com/newaetech/pywhispererusb.git
+
+# Install pywhispererusb
+WORKDIR /opt/pywhispererusb/
+RUN pip3 install -r software/requirements.txt 
+RUN python3 setup.py develop
+
 # Create workspace directory (This is where we mount user data)
 RUN mkdir -p /cw_workspace
 WORKDIR /cw_workspace

@@ -21,4 +21,4 @@ docker run -i -t -p 8888:8888 --privileged \
 	-v /etc/passwd:/etc/passwd:ro \
 	-v /etc/group:/etc/group:ro \
 	-v /etc/group-:/etc/group-:ro \
-	cw5
+    suidroot/chipwhisperer5	
