@@ -1,5 +1,7 @@
 #!/bin/bash
 
+CW_WORKDIR="/cw_workspace"
+
 if [ -z "$1" ]
 then
       echo "Please supply a token for authentication!"
@@ -13,12 +15,9 @@ then
 fi
 
 docker run -i -t -p 8888:8888 --privileged \
-	-u $(id -u ${USER}):$(id -g ${USER}) --group-add plugdev \
+	--rm \
+	--name "chipwhisperer" \
 	-v /dev/bus/usb:/dev/bus/usb \
-	-v ${2}:/cw_workspace \
+	-v ${2}:/$CW_WORKDIR \
 	--env TOKEN=${1} \
-	--env HOME=/home \
-	-v /etc/passwd:/etc/passwd:ro \
-	-v /etc/group:/etc/group:ro \
-	-v /etc/group-:/etc/group-:ro \
-    suidroot/cw	
+    	suidroot/cw	
